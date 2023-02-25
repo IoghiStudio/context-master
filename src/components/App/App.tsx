@@ -39,24 +39,38 @@ const initialState = {
 
 export const App = () => {
   const [{ counter }, setCounter] = useReducer(reducer, initialState);
+  const [count, setCount] = useState(
+    Number(localStorage.getItem('count')) || 0
+  );
+
+  const save = (value: number) => {
+    setCount(value);
+
+    localStorage.setItem(
+      'count',
+      JSON.stringify(value)
+    );
+  }
 
   return (
     <>
       <button
         type="button"
         onClick={() => {
-          setCounter(ReducerType.Subtract);
+          // setCounter(ReducerType.Subtract);
+          save(count - 1);
         }}
-      >
+        >
         -
       </button>
 
-        {counter}
+        {count}
 
       <button
         type="button"
         onClick={() => {
-          setCounter(ReducerType.Add)
+          // setCounter(ReducerType.Add)
+          save(count + 1);
         }}
       >
         +
