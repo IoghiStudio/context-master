@@ -1,17 +1,51 @@
-import React, { useState } from 'react';
-import { Form } from '../Form';
-import { TodoList } from '../TodoList';
-import { AppContext, AppProvider } from '../AppContext';
+import React, { useReducer, useState } from 'react';
+
+enum ReducerType  {
+  Add = 'add',
+  Subtract = 'subtract'
+}
+
+const reducer = (
+  count: number,
+  action: ReducerType,
+) => {
+  switch(action) {
+    case ReducerType.Add:
+      return count + 1;
+
+    case ReducerType.Subtract:
+      return count - 1;
+
+    default:
+      return count;
+  }
+}
+
 
 export const App = () => {
+  const [counter, setCounter] = useReducer(reducer, 0);
 
   return (
-    <AppProvider>
-      <Form onTodoAdd={(name: string) => {
-        setTodos(state => [...state, name])
-      }} />
+    <>
+      <button
+        type="button"
+        onClick={() => {
+          setCounter(ReducerType.Add);
+        }}
+      >
+        -
+      </button>
 
-      <TodoList />
-    </AppProvider>
+        {counter}
+
+      <button
+        type="button"
+        onClick={() => {
+          setCounter(ReducerType.Subtract)
+        }}
+      >
+        +
+      </button>
+    </>
   );
 }

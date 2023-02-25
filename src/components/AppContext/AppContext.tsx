@@ -19,7 +19,7 @@ export const AppProvider: React.FC<ProviderProps> = ({ children }) => {
 
   const context = {
     todos,
-    setTodos,
+    setTodos: (name: string) => {},
   }
 
   return (
