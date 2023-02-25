@@ -5,32 +5,47 @@ enum ReducerType  {
   Subtract = 'subtract'
 }
 
+interface State {
+  counter: number;
+  language: string;
+}
+
 const reducer = (
-  count: number,
+  state: State,
   action: ReducerType,
 ) => {
   switch(action) {
     case ReducerType.Add:
-      return count + 1;
+      return {
+        ...state,
+        counter: state.counter + 1,
+      }
 
     case ReducerType.Subtract:
-      return count - 1;
+      return {
+        ...state,
+        counter: state.counter - 1,
+      }
 
     default:
-      return count;
+      return state;
   }
 }
 
+const initialState = {
+  counter: 0,
+  language: 'en'
+}
 
 export const App = () => {
-  const [counter, setCounter] = useReducer(reducer, 0);
+  const [{ counter }, setCounter] = useReducer(reducer, initialState);
 
   return (
     <>
       <button
         type="button"
         onClick={() => {
-          setCounter(ReducerType.Add);
+          setCounter(ReducerType.Subtract);
         }}
       >
         -
@@ -41,7 +56,7 @@ export const App = () => {
       <button
         type="button"
         onClick={() => {
-          setCounter(ReducerType.Subtract)
+          setCounter(ReducerType.Add)
         }}
       >
         +
