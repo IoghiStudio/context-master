@@ -1,11 +1,10 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
+import { AppContext } from '../AppContext';
 
-type Props = {
-  onTodoAdd: (name: string) => void;
-}
-
-export const Form: React.FC<Props> = ({ onTodoAdd }) => {
+export const Form = () => {
   const [name, setName] = useState<string>('');
+
+  const { setTodos } = useContext(AppContext);
 
   return (
     <form
@@ -16,7 +15,7 @@ export const Form: React.FC<Props> = ({ onTodoAdd }) => {
           return;
         }
 
-        onTodoAdd(name);
+        setTodos(name);
         setName('');
       }}
     >

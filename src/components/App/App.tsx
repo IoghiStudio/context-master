@@ -1,17 +1,17 @@
 import React, { useState } from 'react';
 import { Form } from '../Form';
 import { TodoList } from '../TodoList';
+import { AppContext, AppProvider } from '../AppContext';
 
 export const App = () => {
-  const [todos, setTodos] = useState<string[]>([]);
 
   return (
-    <div>
+    <AppProvider>
       <Form onTodoAdd={(name: string) => {
         setTodos(state => [...state, name])
       }} />
 
-      <TodoList todos={todos} />
-    </div>
+      <TodoList />
+    </AppProvider>
   );
 }
